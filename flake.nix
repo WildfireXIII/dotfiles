@@ -34,7 +34,20 @@
 
     nixosConfigurations = {
       vm = host.mkHost {
+	name = "test_vm";
+	kernelPackage = pkgs.linuxPackages;
+	initrdMods = [  "ata_piix" "ohci_pci" "sd_mod" "sr_mod" ];
+	kernelMods = [];
+	kernelParams = [];
+	systemConfig = {}
       };
+	users = [{
+		name = "dwl";
+		groups = [ "networkmanager" ];
+		uid = 1000;
+		shell = pkgs.bash;
+	}];
+	# how to put file system stuff/swap??
     };
 
   };
